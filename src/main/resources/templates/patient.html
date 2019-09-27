@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th=”http://www.thymeleaf.org” lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health First</title>
+</head>
+<body style="background-color: cornflowerblue">
+
+<div>
+    <a th:href="@{/}">
+        <button style="background-color: lightgreen; width: 100px; border-color: #208000; font-weight: bold">
+            HOME
+        </button>
+    </a>
+</div>
+
+<p style="font-weight: bold">Patient's section</p>
+
+<div class="width">
+    <div class="intro-content" style="background-color: cornflowerblue">
+
+        <table style="color: #00264f; font-weight: bold; background-color: #2469b3">
+            <tr>
+                <td>Personal data</td>
+            </tr>
+        </table>
+
+        <table style="font-weight: bold; color: #f0f0f0">
+
+            <form th:action="@{'/patient/' + ${patientToView.id}}" th:method="put" th:object="${patientToView}">
+
+                <tr>
+                    <td style="color: #00264d">First name:</td>
+                    <td style="color: #f0f0f0; font-weight: bold" th:text="${patientToView.firstName}">First name</td>
+                    <td style="width: 150px"></td>
+                    <td style="width: 150px">
+                        <input th:field="*{firstName}" type="text" class="form-control" placeholder="Change first name">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #00264d">Last name:</td>
+                    <td style="color: #f0f0f0; font-weight: bold" th:text="${patientToView.lastName}">Last name</td>
+                    <td style="width: 150px"></td>
+                    <td style="width: 150px">
+                        <input th:field="*{lastName}" type="text" class="form-control" placeholder="Change last name">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #00264d">Street:</td>
+                    <td style="color: #f0f0f0; font-weight: bold" th:text="${patientToView.street}">Street</td>
+                    <td style="width: 150px"></td>
+                    <td style="width: 150px">
+                        <input th:field="*{street}" type="text" class="form-control" placeholder="Change street">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #00264d">ZIP code:</td>
+                    <td style="color: #f0f0f0; font-weight: bold" th:text="${patientToView.zipCode}">ZIP code</td>
+                    <td style="width: 150px"></td>
+                    <td style="width: 150px">
+                        <input th:field="*{zipCode}" type="text" class="form-control" placeholder="Change ZIP code">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #00264d">City:</td>
+                    <td style="color: #f0f0f0; font-weight: bold" th:text="${patientToView.city}">City</td>
+                    <td style="width: 150px"></td>
+                    <td style="width: 150px">
+                        <input th:field="*{city}" type="text" class="form-control" placeholder="Change city">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="width: 150px"></td>
+                    <td>
+                        <button style="background-color: indianred; width: 70px; border-color: #208000; font-weight: bold">
+                            UPDATE
+                        </button>
+                    </td>
+                </tr>
+
+            </form>
+
+        </table>
+
+    </div>
+</div>
+
+<!--<div>-->
+<!--    <a th:href="@{'/make-appointment/' + ${patientToView.id}}">-->
+<!--        <button style="background-color: yellow; width: 300px; border-color: #208000; font-weight: bold">-->
+<!--            MAKE AN APPOINTMENT-->
+<!--        </button>-->
+<!--    </a>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    <p>If you want to see the list of all appointments of this patient, including invalid appointments (with deleted doctor):-->
+<!--        <a th:href="@{'/appointments/patient/' + ${patientToView.id}}">-->
+<!--            <button style="background-color: greenyellow; width: 200px; border-color: #208000; font-weight: bold">-->
+<!--                click here-->
+<!--            </button>-->
+<!--        </a>-->
+<!--    </p>-->
+<!--</div>-->
+
+</body>
+</html>

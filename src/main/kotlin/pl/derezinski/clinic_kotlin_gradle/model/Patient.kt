@@ -16,15 +16,12 @@ class Patient {
 
     @Id                                               // PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.AUTO)   // AUTO_INCREMENT
-    var id: Long? = null
-        set(id) {
-            field = this.id
-        }
-    private val firstName: String
-    private val lastName: String
-    private val street: String
-    private val zipCode: String
-    private val city: String
+    var id: Long = 0
+    var firstName: String
+    var lastName: String
+    var street: String
+    var zipCode: String
+    var city: String
 
     constructor(firstName: String, lastName: String, street: String, zipCode: String, city: String) {
         this.firstName = firstName

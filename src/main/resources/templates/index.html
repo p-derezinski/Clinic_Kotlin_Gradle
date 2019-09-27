@@ -15,11 +15,11 @@
             Create a new patient
         </button>
     </a>
-<!--    <a th:href="@{/create-doctor}">-->
-<!--        <button style="background-color: yellow; width: 200px; border-color: #208000; font-weight: bold">-->
-<!--            Create a new doctor-->
-<!--        </button>-->
-<!--    </a>-->
+    <a th:href="@{/create-doctor}">
+        <button style="background-color: yellow; width: 200px; border-color: #208000; font-weight: bold">
+            Create a new doctor
+        </button>
+    </a>
 </div>
 
 <div>
@@ -73,52 +73,52 @@
     </div>
 </div>
 
-<!--<div>-->
-<!--    <br>-->
-<!--    <p style="font-weight: bold">List of doctors</p>-->
-<!--</div>-->
+<div>
+    <br>
+    <p style="font-weight: bold">List of doctors</p>
+</div>
 
-<!--<div class="width">-->
-<!--    <div class="intro-content">-->
+<div class="width">
+    <div class="intro-content">
 
-<!--        <table class="table table-striped" id="myTable2">-->
+        <table class="table table-striped" id="myTable2">
 
-<!--            <thead class="thead-inverse" style="color: palegoldenrod; font-weight: bold; background-color: orangered">-->
-<!--            <tr>-->
-<!--                <th>FIRST NAME</th>-->
-<!--                <th>LAST NAME</th>-->
-<!--                <th>MEDICAL SPECIALIZATION</th>-->
-<!--                <th>DOCTOR'S SECTION</th>-->
-<!--                <th>ACTION</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
+            <thead class="thead-inverse" style="color: palegoldenrod; font-weight: bold; background-color: orangered">
+            <tr>
+                <th>FIRST NAME</th>
+                <th>LAST NAME</th>
+                <th>MEDICAL SPECIALIZATION</th>
+                <th>DOCTOR'S SECTION</th>
+                <th>ACTION</th>
+            </tr>
+            </thead>
 
-<!--            <tbody id="filterTable2" style="color: orangered;" th:each="doctor : ${listOfDoctors}">-->
-<!--            <tr>-->
-<!--                <td th:text="${doctor.firstName}">First name</td>-->
-<!--                <td th:text="${doctor.lastName}">Last name</td>-->
-<!--                <td th:text="${doctor.medicalSpecialization}">Medical specialization</td>-->
-<!--                <td>-->
-<!--                    <a th:href="@{'/doctor/' + ${doctor.id}}">-->
-<!--                        <button style="background-color: greenyellow; width: 175px; border-color: #208000; font-weight: bold">-->
-<!--                            GO-->
-<!--                        </button>-->
-<!--                    </a>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <form th:action="@{'/doctor/' + ${doctor.id}}" th:method="delete">-->
-<!--                        <button style="background-color: indianred; width: 175px; border-color: #208000; font-weight: bold">-->
-<!--                            DELETE-->
-<!--                        </button>-->
-<!--                    </form>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
+            <tbody id="filterTable2" style="color: orangered;" th:each="doctor : ${listOfDoctors}">
+            <tr>
+                <td th:text="${doctor.firstName}">First name</td>
+                <td th:text="${doctor.lastName}">Last name</td>
+                <td th:text="${doctor.medicalSpecialization}">Medical specialization</td>
+                <td>
+                    <a th:href="@{'/doctor/' + ${doctor.id}}">
+                        <button style="background-color: greenyellow; width: 175px; border-color: #208000; font-weight: bold">
+                            GO
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <form th:action="@{'/doctor/' + ${doctor.id}}" th:method="delete">
+                        <button style="background-color: indianred; width: 175px; border-color: #208000; font-weight: bold">
+                            DELETE
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
 
-<!--        </table>-->
+        </table>
 
-<!--    </div>-->
-<!--</div>-->
+    </div>
+</div>
 
 <!--<div>-->
 <!--    <br>-->

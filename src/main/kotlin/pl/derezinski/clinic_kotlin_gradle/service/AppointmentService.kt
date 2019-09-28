@@ -1,0 +1,61 @@
+package pl.derezinski.clinic_kotlin_gradle.service
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+import pl.derezinski.clinic_kotlin_gradle.controller.dto.AppointmentDto
+import pl.derezinski.clinic_kotlin_gradle.model.Appointment
+import pl.derezinski.clinic_kotlin_gradle.repository.AppointmentRepository
+import pl.derezinski.clinic_kotlin_gradle.repository.DoctorRepository
+import pl.derezinski.clinic_kotlin_gradle.repository.PatientRepository
+
+@Service
+class AppointmentService @Autowired
+constructor(internal var appointmentRepository: AppointmentRepository,
+            internal var patientRepository: PatientRepository,
+            internal var doctorRepository: DoctorRepository,
+            internal var patientService: PatientService,
+            internal var doctorService: DoctorService) {
+
+    val all: List<Appointment>
+        get() = appointmentRepository.findAll()
+
+    val allForExistingPatientsAndDoctors: List<Appointment>
+        get() {
+            val listOfAppointments = appointmentRepository.findAll()
+            var listOfAppointmentsToModify = appointmentRepository.findAll()
+            val listOfPatientIdNumbers = patientService.allIdNumbers
+            val listOfDoctorIdNumbers = doctorService.allIdNumbers
+            for (appointment in listOfAppointments) {
+                if (!listOfPatientIdNumbers.contains(appointment.patient.id)
+                        || !listOfDoctorIdNumbers.contains(appointment.doctor.id)) {
+                    listOfAppointmentsToModify.remove(appointment)
+                }
+            }
+            return listOfAppointmentsToModify
+        }
+
+    fun saveAppointment(appointmentDto: AppointmentDto, patientId: Long) {
+        val patient = patientRepository.findFirstById(patientId)
+        val doctor = doctorRepository.findFirstById(appointmentDto.doctorId!!)
+        val appointment = Appointment(appointmentDto.appointmentDate!!, appointmentDto.appointmentTime!!,
+                appointmentDto.location!!, doctor, patient)
+        appointmentRepository.save(appointment)
+    }
+
+    fun getFirstById(id: Long): Appointment {
+        return appointmentRepository.findFirstById(id)
+    }
+
+    fun getAllByPatient(patientId: Long): List<Appointment> {
+        val patient = patientRepository.findFirstById(patientId)
+        return appointmentRepository.findAllByPatient(patient)
+    }
+
+    fun update(appointment: Appointment) {
+        appointmentRepository.save(appointment)
+    }
+
+    fun deleteById(id: Long) {
+        appointmentRepository.deleteById(id)
+    }
+}

@@ -12,9 +12,7 @@ import pl.derezinski.clinic_kotlin_gradle.repository.PatientRepository
 class AppointmentService @Autowired
 constructor(internal var appointmentRepository: AppointmentRepository,
             internal var patientRepository: PatientRepository,
-            internal var doctorRepository: DoctorRepository,
-            internal var patientService: PatientService,
-            internal var doctorService: DoctorService) {
+            internal var doctorRepository: DoctorRepository) {
 
     val all: List<Appointment>
         get() = appointmentRepository.findAll()
@@ -23,11 +21,8 @@ constructor(internal var appointmentRepository: AppointmentRepository,
         get() {
             val listOfAppointments = appointmentRepository.findAll()
             var listOfAppointmentsToModify = appointmentRepository.findAll()
-            val listOfPatientIdNumbers = patientService.allIdNumbers
-            val listOfDoctorIdNumbers = doctorService.allIdNumbers
             for (appointment in listOfAppointments) {
-                if (!listOfPatientIdNumbers.contains(appointment.patient.id)
-                        || !listOfDoctorIdNumbers.contains(appointment.doctor.id)) {
+                if (appointment.patient == null || appointment.doctor == null) {
                     listOfAppointmentsToModify.remove(appointment)
                 }
             }

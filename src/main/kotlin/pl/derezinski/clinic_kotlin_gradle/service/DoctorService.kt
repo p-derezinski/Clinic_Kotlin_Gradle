@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service
 import pl.derezinski.clinic_kotlin_gradle.controller.dto.DoctorDto
 import pl.derezinski.clinic_kotlin_gradle.model.Doctor
 import pl.derezinski.clinic_kotlin_gradle.repository.DoctorRepository
-import java.util.ArrayList
 
 @Service
 class DoctorService @Autowired
@@ -17,7 +16,7 @@ constructor(internal var doctorRepository: DoctorRepository) {
     val allIdNumbers: List<Long>
         get() {
             val listOfDoctors = all
-            val listOfIdNumbers = ArrayList<Long>()
+            val listOfIdNumbers = mutableListOf<Long>()
             for (doctor in listOfDoctors) {
                 listOfIdNumbers.add(doctor.id)
             }

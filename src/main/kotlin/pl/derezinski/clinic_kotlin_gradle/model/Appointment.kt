@@ -3,6 +3,8 @@ package pl.derezinski.clinic_kotlin_gradle.model
 import lombok.AllArgsConstructor
 import lombok.Data
 import lombok.NoArgsConstructor
+import org.hibernate.annotations.NotFound
+import org.hibernate.annotations.NotFoundAction
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -20,10 +22,12 @@ class Appointment {
     var location: Location
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "doctorId")
     var doctor: Doctor
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "patientId")
     var patient: Patient
 

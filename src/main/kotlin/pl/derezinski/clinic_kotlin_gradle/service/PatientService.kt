@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service
 import pl.derezinski.clinic_kotlin_gradle.controller.dto.PatientDto
 import pl.derezinski.clinic_kotlin_gradle.model.Patient
 import pl.derezinski.clinic_kotlin_gradle.repository.PatientRepository
-import java.util.ArrayList
 
 @Service
 class PatientService @Autowired
@@ -13,16 +12,6 @@ constructor(internal var patientRepository: PatientRepository) {
 
     val all: List<Patient>
         get() = patientRepository.findAll()
-
-    val allIdNumbers: List<Long>
-        get() {
-            val listOfPatients = all
-            val listOfIdNumbers = ArrayList<Long>()
-            for (patient in listOfPatients) {
-                listOfIdNumbers.add(patient.id)
-            }
-            return listOfIdNumbers
-        }
 
     fun savePatient(patientDto: PatientDto) {
         val patient = Patient(patientDto.firstName!!, patientDto.lastName!!,

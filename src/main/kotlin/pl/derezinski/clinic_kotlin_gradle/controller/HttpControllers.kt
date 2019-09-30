@@ -2,10 +2,14 @@ package pl.derezinski.clinic_kotlin_gradle.controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import pl.derezinski.clinic_kotlin_gradle.controller.dto.AppointmentDto
 import pl.derezinski.clinic_kotlin_gradle.controller.dto.DoctorDto
 import pl.derezinski.clinic_kotlin_gradle.controller.dto.PatientDto
+import pl.derezinski.clinic_kotlin_gradle.model.Location
+import pl.derezinski.clinic_kotlin_gradle.service.AppointmentService
 import pl.derezinski.clinic_kotlin_gradle.service.DoctorService
 import pl.derezinski.clinic_kotlin_gradle.service.PatientService
+import java.time.LocalDate
 
 @RestController
 @RequestMapping("/api/patient")
@@ -57,5 +61,41 @@ class HttpDoctorController @Autowired constructor(internal var doctorService: Do
 
     @DeleteMapping("/{id}")
     fun deleteDoctor(@PathVariable id: Long) = doctorService.deleteById(id)
+
+}
+
+@RestController
+@RequestMapping("/api/appointment")
+class HttpAppointmentController @Autowired constructor(internal var appointmentService: AppointmentService) {
+
+    @GetMapping("/{id}")
+    fun findOne(@PathVariable id: Long) = appointmentService.getFirstById(id)
+
+    @GetMapping("/appointments/patient")
+    fun findAll() = appointmentService.all
+
+    @GetMapping("/appointments/patient/{id}")
+    fun findAllByPatient(@PathVariable id: Long) = appointmentService.getAllByPatient(id)
+
+    @PostMapping("/")
+    fun addAppointment(@RequestBody jsonHolder: Map<String, String>) {
+        val appointmentDto = AppointmentDto()
+        appointmentDto.appointmentDate = LocalDate.parse(jsonHolder["appointmentDate"])
+        appointmentDto.appointmentTime = jsonHolder["appointmentTime"]
+        appointmentDto.location = Location.valueOf(jsonHolder["location"]!!)
+        appointmentDto.doctorId = jsonHolder["doctorId"]!!.toLong()
+        val patientId = jsonHolder["patientId"]!!.toLong()
+        appointmentService.saveAppointment(appointmentDto, patientId)
+    }
+
+    @PutMapping("/{id}")
+    fun updateAppointment(@PathVariable id: Long, @RequestBody jsonHolder: Map<String, String>) {
+        val appointmentToUpdate = appointmentService.getFirstById(id)
+        appointmentToUpdate.appointmentTime = jsonHolder["newAppointmentTime"] ?: appointmentToUpdate.appointmentTime
+        appointmentService.update(appointmentToUpdate)
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteAppointment(@PathVariable id: Long) = appointmentService.deleteById(id)
 
 }

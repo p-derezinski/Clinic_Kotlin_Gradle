@@ -26,6 +26,14 @@ class IntegrationTests(@Autowired val restTemplate: TestRestTemplate) {
         assertThat(entity.body).contains("<h3 style=\"color: darkgreen; font-weight: bold\">Health First</h3>")
     }
 
+    @Test
+    fun assertCreatePatientPageContentAndStatusCode() {
+        println(">> Assert createPatient page content and status code")
+        val entity = restTemplate.getForEntity<String>("/create-patient")
+        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(entity.body).contains("<p style=\"font-weight: bold\">Creating a new patient</p>")
+    }
+
     @AfterAll
     fun teardown() {
         println(">> Tear down")
